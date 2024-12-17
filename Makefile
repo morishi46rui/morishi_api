@@ -27,7 +27,7 @@ down:
 
 # コンテナ内に入る
 b:
-	docker compose exec backend bash
+	docker compose exec app bash
 
 # 初期データ投入
 seed:
