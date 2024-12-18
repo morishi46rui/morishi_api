@@ -16,10 +16,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libzip-dev \
-    libpq-dev \
     locales \
     cron \
-    && docker-php-ext-install mbstring exif pcntl bcmath gd pgsql pdo_pgsql \
+    && docker-php-ext-install mbstring exif pcntl bcmath gd pdo_mysql \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 

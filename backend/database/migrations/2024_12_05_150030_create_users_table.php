@@ -16,20 +16,19 @@ return new class extends Migration
 {
     Schema::create('users', function (Blueprint $table) {
         $table->id();
-        $table->text('name')->comment('ユーザー名');
-        $table->text('email')->unique()->comment('メールアドレス');
-        $table->text('password')->nullable()->comment('パスワード');
-        $table->text('onetime_password')->nullable()->comment('ワンタイムパスワード');
+        $table->string('name')->comment('ユーザー名');
+        $table->string('email', 191)->unique()->comment('メールアドレス');
+        $table->string('password')->nullable()->comment('パスワード');
+        $table->string('onetime_password')->nullable()->comment('ワンタイムパスワード');
         $table->timestamp('otp_expiration')->nullable()->comment('ワンタイムパスワードの有効期限');
         $table->smallInteger('login_attempts')->nullable()->comment('ログイン失敗回数');
         $table->timestamp('last_login_datetime')->nullable()->comment('最終ログイン日時');
         $table->timestamp('account_locked_datetime')->nullable()->comment('アカウントロック日時');
         $table->timestamp('email_verified_at')->nullable();
-        $table->text('remember_token')->nullable();
+        $table->string('remember_token')->nullable();
         $table->softDeletes();
         $table->timestamps();
     });
-    DB::statement('CREATE UNIQUE INDEX user_email_unique ON "users" (email) WHERE deleted_at IS NULL');
 }
 
 
