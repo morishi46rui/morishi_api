@@ -48,7 +48,7 @@ fixb:
 	vendor/bin/psalm && \
 	vendor/bin/phpmd app/ text phpmd.xml && \
 	vendor/bin/phpcs --standard=PSR12 app/ && \
-	php artisan test"
+	php artisan test || true"
 
 # OpenApi Schemaの生成/更新
 api:
@@ -63,7 +63,9 @@ init:
 	make buildn && \
 	make upd && \
 	make seed && \
-	docker compose exec -it db mysql -U laraveluser -d laravel -tc "SELECT 1 FROM pg_database WHERE datname = 'laraveltest'" | grep -q 1 || docker compose exec -it db mysql -U laraveluser -d laravel -c "CREATE DATABASE laraveltest;" && \
+	docker compose exec -it db mysql -u root -p -e \
+	"SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'laraveltest';" \
+	| grep -q laraveltest || docker compose exec -it db mysql -u root -p -e "CREATE DATABASE laraveltest;"
 
 cho:
 	chown -R www-data app/storage

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 // 参考: https://zenn.dev/egstock_inc/articles/4892cb7313bd4e
 class ApiValidation
 {
-    public function handle(Request $request, \Closure $next)
+    public function handle(Request $request, \Closure $next): Response
     {
         $psr17Factory = new Psr17Factory();
         $psr17HttpFactory = new PsrHttpFactory(
