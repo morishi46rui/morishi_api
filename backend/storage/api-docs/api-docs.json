@@ -1,0 +1,540 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "morishi API",
+        "description": "morishi API",
+        "contact": {
+            "email": "morishi@example.com"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1",
+            "description": "Localhost API Server"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログイン",
+                "description": "メールアドレスとパスワードでログイン",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ログイン成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログアウト",
+                "description": "現在のセッションを終了し、トークンを削除します",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "ログアウト成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/logoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum_token": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "アカウント新規作成",
+                "description": "新しいユーザーアカウントを作成",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/registerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "アカウント新規作成成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/registerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/sample": {
+            "get": {
+                "tags": [
+                    "Sample"
+                ],
+                "summary": "サンプル",
+                "description": "サンプル",
+                "operationId": "getSample",
+                "responses": {
+                    "200": {
+                        "description": "サンプルのレスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "sample"
+                                    ],
+                                    "properties": {
+                                        "sample": {
+                                            "description": "サンプル",
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "loginRequest": {
+                "title": "ログインリクエスト",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "$ref": "#/components/schemas/user/properties/email"
+                    },
+                    "password": {
+                        "$ref": "#/components/schemas/user/properties/password"
+                    }
+                },
+                "type": "object"
+            },
+            "registerRequest": {
+                "title": "アカウント新規作成リクエスト",
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "passwordConfirmation"
+                ],
+                "properties": {
+                    "name": {
+                        "$ref": "#/components/schemas/user/properties/name"
+                    },
+                    "email": {
+                        "$ref": "#/components/schemas/user/properties/email"
+                    },
+                    "password": {
+                        "$ref": "#/components/schemas/user/properties/password"
+                    },
+                    "passwordConfirmation": {
+                        "$ref": "#/components/schemas/user/properties/password"
+                    }
+                },
+                "type": "object"
+            },
+            "user": {
+                "title": "ユーザー",
+                "description": "ユーザー",
+                "properties": {
+                    "id": {
+                        "description": "ID",
+                        "type": "string",
+                        "example": "o8JZJOgg6dUk"
+                    },
+                    "name": {
+                        "description": "名前",
+                        "type": "string",
+                        "example": "rui"
+                    },
+                    "email": {
+                        "description": "メールアドレス",
+                        "type": "string",
+                        "example": "rui@example.com"
+                    },
+                    "password": {
+                        "description": "パスワード",
+                        "type": "string",
+                        "example": "P@ssw0rd"
+                    },
+                    "onetimePassword": {
+                        "description": "ワンタイムパスワード",
+                        "type": "string",
+                        "example": "123456"
+                    },
+                    "otpExpiration": {
+                        "description": "ワンタイムパスワード有効期限",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "loginShippaiKaisuu": {
+                        "description": "ログイン失敗回数",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "lastLoginDatetime": {
+                        "description": "最終ログイン日時",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "accountLockedDatetime": {
+                        "description": "アカウントロック日時",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "emailVerifiedAt": {
+                        "description": "メール認証日時",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "remember_token": {
+                        "description": "リメンバートークン",
+                        "type": "string",
+                        "example": "token"
+                    },
+                    "deletedAt": {
+                        "description": "削除日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "createdAt": {
+                        "description": "作成日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    },
+                    "updatedAt": {
+                        "description": "更新日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-09-19 01:02:03"
+                    }
+                },
+                "type": "object"
+            },
+            "400": {
+                "title": "Bad Request",
+                "required": [],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 400
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Bad Request"
+                    }
+                },
+                "type": "object"
+            },
+            "401": {
+                "title": "Unauthorized",
+                "required": [],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 401
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                    }
+                },
+                "type": "object"
+            },
+            "403": {
+                "title": "Forbidden",
+                "required": [],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 403
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Forbidden"
+                    }
+                },
+                "type": "object"
+            },
+            "404": {
+                "title": "Not Found",
+                "required": [],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 404
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Not Found"
+                    }
+                },
+                "type": "object"
+            },
+            "422": {
+                "title": "Unprocessable Entity Error",
+                "required": [],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "example": 422
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Validation Error"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "example": {
+                            "field1": [
+                                "Error message 1",
+                                "Error message 2"
+                            ],
+                            "field2": [
+                                "Error message 3"
+                            ]
+                        },
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "201": {
+                "title": "201 Created",
+                "required": [],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "OK"
+                    }
+                },
+                "type": "object"
+            },
+            "loginResponse": {
+                "description": "ログイン成功",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログイン成功"
+                    },
+                    "token": {
+                        "description": "アクセストークン",
+                        "type": "string",
+                        "example": "sample_token"
+                    }
+                },
+                "type": "object"
+            },
+            "logoutResponse": {
+                "description": "ログアウト成功",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログアウトしました。"
+                    }
+                },
+                "type": "object"
+            },
+            "registerResponse": {
+                "description": "アカウント新規作成成功",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/user/properties/id"
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/user/properties/name"
+                    },
+                    "email": {
+                        "$ref": "#/components/schemas/user/properties/email"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "400": {
+                "description": "bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/400"
+                        }
+                    }
+                }
+            },
+            "401": {
+                "description": "unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/401"
+                        }
+                    }
+                }
+            },
+            "403": {
+                "description": "forbidden",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/403"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/404"
+                        }
+                    }
+                }
+            },
+            "422": {
+                "description": "unprocessable entity",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/422"
+                        }
+                    }
+                }
+            },
+            "201": {
+                "description": "created",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/201"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "idParameter": {
+                "name": "id",
+                "in": "query",
+                "description": "id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "Authorization": {
+                "name": "Authorization",
+                "in": "header",
+                "description": "SanctumのBearerトークン",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "example": "Bearer your_token_here"
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum_token": {
+                "type": "http",
+                "description": "Enter your Sanctum token",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "ユーザー認証"
+        },
+        {
+            "name": "Sample",
+            "description": "サンプル"
+        }
+    ]
+}

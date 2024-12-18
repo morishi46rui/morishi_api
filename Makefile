@@ -4,12 +4,11 @@ build:
 buildn:
 	docker compose build --no-cache && make modb
 buildb:
-	docker compose build backend && make modb
+	docker compose build app && make modb
 
 # buildせずパッケージをインストール
 modb:
-	docker compose run --rm backend composer install && \
-	docker compose run --rm backend-init composer install
+	docker compose run --rm app composer install
 
 # 起動
 up:
@@ -31,7 +30,7 @@ b:
 
 # 初期データ投入
 seed:
-	docker compose exec backend bash -c "php artisan migrate:fresh && php artisan db:seed"
+	docker compose exec app bash -c "php artisan migrate:fresh && php artisan db:seed"
 
 # volume以外を削除
 prune:
@@ -43,8 +42,8 @@ fix:
 
 fixb:
 	docker compose up -d db && \
-	docker compose run --rm backend php artisan clockwork:clean -a && \
-	docker compose run --rm backend bash -c "vendor/bin/pint && \
+	docker compose run --rm app php artisan clockwork:clean -a && \
+	docker compose run --rm app bash -c "vendor/bin/pint && \
 	vendor/bin/phpcbf --standard=PSR12 app/ && \
 	vendor/bin/psalm && \
 	vendor/bin/phpmd app/ text phpmd.xml && \
@@ -54,18 +53,18 @@ fixb:
 # OpenApi Schemaの生成/更新
 api:
 	chmod 777 backend/storage/api-docs/api-docs.json && \
-	docker compose run --rm backend bash -c "php artisan openapi:generate-routes && \
+	docker compose run --rm app bash -c "php artisan openapi:generate-routes && \
 	php artisan l5-swagger:generate && \
 	spectral lint storage/api-docs/api-docs.json"
 
 # 開発環境構築
 init:
-	cp ./backend/.env.example ./backend/.env && \
+	cp ./app/.env.example ./app/.env && \
 	make buildn && \
 	make upd && \
 	make seed && \
 	docker compose exec -it db psql -U laraveluser -d laravel -tc "SELECT 1 FROM pg_database WHERE datname = 'laraveltest'" | grep -q 1 || docker compose exec -it db psql -U laraveluser -d laravel -c "CREATE DATABASE laraveltest;" && \
 
 cho:
-	chown -R www-data backend/storage
-	docker compose exec backend chmod -R a+w /var/www/bootstrap/cache
+	chown -R www-data app/storage
+	docker compose exec app chmod -R a+w /var/www/bootstrap/cache
