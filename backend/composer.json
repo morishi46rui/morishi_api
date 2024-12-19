@@ -5,7 +5,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3.11",
+        "php": "^8.3.10",
         "darkaonline/l5-swagger": "^8.6.2",
         "guzzlehttp/guzzle": "^7.2",
         "kirschbaum-development/laravel-openapi-validator": "^1.0",
@@ -71,7 +71,7 @@
             "php-http/discovery": true
         },
         "platform": {
-            "php": "8.3.11"
+            "php": "8.3.10"
         }
     },
     "minimum-stability": "stable",

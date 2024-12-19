@@ -1,4 +1,4 @@
-FROM php:8.3.11-fpm
+FROM php:8.3.10-fpm
 
 # ビルドキャッシュの削除を無効化
 # 参考: https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md#run---mounttypecache
