@@ -53,4 +53,5 @@ COPY crontab /etc/cron.d/laravel-cron
 RUN chmod 0644 /etc/cron.d/laravel-cron
 RUN crontab /etc/cron.d/laravel-cron
 
-CMD ["sh", "-c", "cron && php-fpm"]
+# 開発サーバー起動コマンド
+CMD ["sh", "-c", "cron && php artisan serve --host=0.0.0.0 --port=8000"]

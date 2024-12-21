@@ -6,21 +6,8 @@ services:
     container_name: morishi_api
     volumes:
       - ./backend:/var/www
-    networks:
-      - app-network
-
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx
     ports:
-      - "8000:80"
-    volumes:
-      - ./backend:/var/www
-      - ./nginx/conf.d:/etc/nginx/conf.d
-    depends_on:
-      - app
+      - "8000:8000"
     networks:
       - app-network
 
