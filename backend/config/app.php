@@ -174,6 +174,7 @@ return [
         Clockwork\Support\Laravel\ClockworkServiceProvider::class,
         App\Providers\CustomMigrationServiceProvider::class,
         App\Providers\DatabaseQueryServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ])->toArray(),
 
     /*
