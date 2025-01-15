@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use OpenApi\Attributes as OA;
 use Laravel\Passport\HasApiTokens;
+use OpenApi\Attributes as OA;
 
 #[OA\Schema(
     schema: 'user',
@@ -81,11 +81,11 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements AuthenticatableContract, CanResetPassword
 {
+    use HasApiTokens;
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use SqidTrait;
-    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.

@@ -15,6 +15,47 @@
         }
     ],
     "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログイン",
+                "description": "ログイン",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ログイン成功レスポンス",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
         "/sample": {
             "get": {
                 "tags": [
@@ -50,6 +91,22 @@
     },
     "components": {
         "schemas": {
+            "loginRequest": {
+                "title": "ログインリクエスト",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "$ref": "#/components/schemas/user/properties/email"
+                    },
+                    "password": {
+                        "$ref": "#/components/schemas/user/properties/password"
+                    }
+                },
+                "type": "object"
+            },
             "user": {
                 "title": "ユーザー",
                 "description": "ユーザー",
@@ -238,6 +295,26 @@
                     }
                 },
                 "type": "object"
+            },
+            "loginResponse": {
+                "description": "ログイン成功",
+                "required": [
+                    "message",
+                    "token"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログイン成功"
+                    },
+                    "token": {
+                        "description": "アクセストークン",
+                        "type": "string",
+                        "example": "sample_token"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
@@ -315,6 +392,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Auth",
+            "description": "認証"
+        },
         {
             "name": "Sample",
             "description": "サンプル"
