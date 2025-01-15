@@ -47,7 +47,8 @@ class AuthController extends Controller
     )]
     public function login(LoginRequest $request, LoginAction $action): JsonResponse
     {
-        $response = $action($request);
+        $credentials = $request->only('email', 'password');
+        $response = $action($credentials);
 
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }

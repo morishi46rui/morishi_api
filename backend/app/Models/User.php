@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Utils\SqidTrait;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -79,7 +78,7 @@ use OpenApi\Attributes as OA;
     ]
 )]
 
-class User extends Authenticatable implements AuthenticatableContract, CanResetPassword
+class User extends Authenticatable implements AuthenticatableContract
 {
     use HasApiTokens;
     use HasFactory;
