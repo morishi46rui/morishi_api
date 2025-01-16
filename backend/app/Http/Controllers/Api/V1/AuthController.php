@@ -18,32 +18,25 @@ class AuthController extends Controller
         tags: ['Auth'],
         summary: 'ログイン',
         description: 'ログイン',
-        operationId: 'login'
-    )]
-    #[OA\RequestBody(
-        required: true,
-        content: new OA\JsonContent(
-            ref: '#/components/schemas/loginRequest'
-        )
-    )]
-    #[OA\Response(
-        response: '200',
-        description: 'ログイン成功レスポンス',
-        content: new OA\JsonContent(
-            ref: '#/components/schemas/loginResponse'
-        )
-    )]
-    #[OA\Response(
-        response: '401',
-        ref: '#/components/responses/401'
-    )]
-    #[OA\Response(
-        response: '404',
-        ref: '#/components/responses/404'
-    )]
-    #[OA\Response(
-        response: '422',
-        ref: '#/components/responses/422'
+        operationId: 'login',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                ref: '#/components/schemas/loginRequest'
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: '200',
+                description: 'ログイン成功',
+                content: new OA\JsonContent(
+                    ref: '#/components/schemas/loginResponse'
+                )
+            ),
+            new OA\Response(response: '401', ref: '#/components/responses/401'),
+            new OA\Response(response: '404', ref: '#/components/responses/404'),
+            new OA\Response(response: '422', ref: '#/components/responses/422'),
+        ]
     )]
     public function login(LoginRequest $request, LoginAction $action): JsonResponse
     {

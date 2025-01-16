@@ -37,16 +37,15 @@ class AuthControllerTest extends TestCase
     {
         $this->createTestUser();
 
-        $response = $this->postJson('/api/v1/login', [
+        $this->postJson('/api/v1/login', [
             'email' => 'user@example.com',
             'password' => 'password123',
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJsonStructure([
-            'message',
-            'token',
-        ]);
+        ])
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'message',
+                'token',
+            ]);
     }
 
     #[Test]
@@ -54,14 +53,13 @@ class AuthControllerTest extends TestCase
     {
         $this->createTestUser();
 
-        $response = $this->postJson('/api/v1/login', [
+        $this->postJson('/api/v1/login', [
             'email' => 'user@example.com',
             'password' => 'wrongpassword',
-        ]);
-
-        $response->assertStatus(401);
-        $response->assertJson([
-            'message' => 'ログイン失敗：認証に失敗しました。',
-        ]);
+        ])
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'ログイン失敗：認証に失敗しました。',
+            ]);
     }
 }

@@ -10,21 +10,21 @@ use Laravel\Passport\ClientRepository;
 
 trait TestHelper
 {
-    private static bool $isClientCreated = false;
+    protected static bool $passportClientCreated = false;
 
-    /**
-     * クライアントを作成（既に存在する場合は再利用）
-     */
-    public static function createPassportClient(): void
+    protected static function createPassportClient(): void
     {
-        if (! DB::table('oauth_clients')->where('name', 'Personal Access Client')->exists()) {
-            $clientRepository = new ClientRepository();
-            $clientRepository->createPersonalAccessClient(
-                null,
-                'Personal Access Client',
-                'http://localhost'
-            );
-        }
+        // テーブルの内容を毎回リセットしてクライアントを再作成
+        DB::table('oauth_clients')->truncate();
+
+        $clientRepository = new ClientRepository();
+        $clientRepository->createPersonalAccessClient(
+            null,
+            'Personal Access Client',
+            'http://localhostexit'
+        );
+
+        self::$passportClientCreated = true;
     }
 
     /**
