@@ -56,6 +56,36 @@
                 }
             }
         },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログアウト",
+                "description": "ログアウト",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "ログアウト成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/logoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
         "/sample": {
             "get": {
                 "tags": [
@@ -315,6 +345,20 @@
                     }
                 },
                 "type": "object"
+            },
+            "logoutResponse": {
+                "description": "ログアウト成功",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログアウトに成功しました。"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
@@ -388,6 +432,13 @@
                 "schema": {
                     "type": "integer"
                 }
+            }
+        },
+        "securitySchemes": {
+            "BearerToken": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },

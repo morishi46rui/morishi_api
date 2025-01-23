@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/sample', 'App\Http\Controllers\Api\V1\SampleController@index');
 });
 
-Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+Route::middleware('auth:api')->prefix('v1')->group(function () {
+    Route::post('/logout', 'App\Http\Controllers\Api\V1\AuthController@logout');
 });
 // OpenAPI generated routes end

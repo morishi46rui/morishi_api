@@ -62,4 +62,27 @@ class AuthControllerTest extends TestCase
                 'message' => 'ログイン失敗：認証に失敗しました。',
             ]);
     }
+
+    #[Test]
+    public function logout_レスポンス200が返ること(): void
+    {
+        $token = self::createLoginUser();
+
+        $this->withHeaders(self::getAuthHeader($token))
+            ->postJson('/api/v1/logout')
+            ->assertStatus(200)
+            ->assertJson([
+                'message' => 'ログアウトに成功しました。',
+            ]);
+    }
+
+    #[Test]
+    public function logout_未認証で401が返ること(): void
+    {
+        $this->postJson('/api/v1/logout')
+            ->assertStatus(401)
+            ->assertJson([
+                'message' => 'Unauthenticated.',
+            ]);
+    }
 }

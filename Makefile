@@ -73,3 +73,6 @@ cho:
 
 clear:
 	docker compose exec app bash -c "php artisan config:clear && php artisan cache:clear && php artisan route:clear && php artisan view:clear"
+
+test:
+	docker compose exec app bash -c "php artisan test"

@@ -36,7 +36,7 @@ trait TestHelper
     {
         $user = User::factory()->create($userData);
 
-        return $user->createToken('auth_token')->plainTextToken;
+        return $user->createToken('authToken')->accessToken;
     }
 
     /**

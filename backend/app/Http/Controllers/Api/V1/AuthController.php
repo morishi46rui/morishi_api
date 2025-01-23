@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\UseCases\Auth\LoginAction;
+use App\UseCases\Auth\LogoutAction;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Attributes as OA;
 
@@ -42,6 +43,31 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         $response = $action($credentials);
+
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    #[OA\Post(
+        path: '/logout',
+        tags: ['Auth'],
+        summary: 'ログアウト',
+        description: 'ログアウト',
+        operationId: 'logout',
+        security: [['BearerToken' => []]],
+        responses: [
+            new OA\Response(
+                response: '200',
+                description: 'ログアウト成功',
+                content: new OA\JsonContent(
+                    ref: '#/components/schemas/logoutResponse'
+                )
+            ),
+            new OA\Response(response: '401', ref: '#/components/responses/401'),
+        ]
+    )]
+    public function logout(LogoutAction $action): JsonResponse
+    {
+        $response = $action();
 
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
