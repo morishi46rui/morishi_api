@@ -46,6 +46,59 @@
                     }
                 }
             }
+        },
+        "/scrape": {
+            "get": {
+                "tags": [
+                    "Scraping"
+                ],
+                "summary": "指定URLのH2タイトルを抽出",
+                "description": "Guzzle + DomCrawler を使用して対象ページから h2 タグを抽出します",
+                "operationId": "scrapePage",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "対象URL",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uri"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "スクレイピング結果",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "string",
+                                            "example": "https://example.com"
+                                        },
+                                        "titles": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "見出し1",
+                                                "見出し2"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -318,6 +371,10 @@
         {
             "name": "Sample",
             "description": "サンプル"
+        },
+        {
+            "name": "Scraping",
+            "description": "スクレイピングAPI"
         }
     ]
 }

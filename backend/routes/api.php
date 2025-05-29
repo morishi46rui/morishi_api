@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // OpenAPI generated routes start
 Route::prefix('v1')->group(function () {
+    Route::get('/scrape', 'App\Http\Controllers\Api\V1\ScrapingController@__invoke');
     Route::get('/sample', 'App\Http\Controllers\Api\V1\SampleController@index');
 });
 

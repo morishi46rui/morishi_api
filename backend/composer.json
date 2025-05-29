@@ -7,12 +7,14 @@
     "require": {
         "php": "^8.3.10",
         "darkaonline/l5-swagger": "^8.6.2",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.9",
         "kirschbaum-development/laravel-openapi-validator": "^1.0",
         "laravel/framework": "^11.22",
         "laravel/tinker": "^2.8",
         "sqids/sqids": "^0.4.1",
         "staudenmeir/laravel-adjacency-list": "^1.0",
+        "symfony/css-selector": "^7.2",
+        "symfony/dom-crawler": "^7.2",
         "zircote/swagger-php": "^4.10"
     },
     "require-dev": {
