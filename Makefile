@@ -69,7 +69,8 @@ cho:
 
 controller:
 	@read -p "Controller name (without 'Controller' suffix): " name; \
-	docker compose exec app php artisan make:apicontroller "Api/V1/$${name}Controller"
+	docker compose exec app php artisan make:apicontroller "Api/V1/$${name}Controller" && \
+	make api
 
 test:
 	docker compose exec app php artisan test
