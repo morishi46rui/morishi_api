@@ -15,6 +15,77 @@
         }
     ],
     "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログイン",
+                "description": "ログイン",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/loginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ログイン成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/422"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "ログアウト",
+                "description": "ログアウト",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "ログアウト成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/logoutResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerToken": []
+                    }
+                ]
+            }
+        },
         "/sample": {
             "get": {
                 "tags": [
@@ -50,6 +121,22 @@
     },
     "components": {
         "schemas": {
+            "loginRequest": {
+                "title": "ログインリクエスト",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "$ref": "#/components/schemas/user/properties/email"
+                    },
+                    "password": {
+                        "$ref": "#/components/schemas/user/properties/password"
+                    }
+                },
+                "type": "object"
+            },
             "user": {
                 "title": "ユーザー",
                 "description": "ユーザー",
@@ -238,6 +325,40 @@
                     }
                 },
                 "type": "object"
+            },
+            "loginResponse": {
+                "description": "ログイン成功",
+                "required": [
+                    "message",
+                    "token"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログイン成功"
+                    },
+                    "token": {
+                        "description": "アクセストークン",
+                        "type": "string",
+                        "example": "sample_token"
+                    }
+                },
+                "type": "object"
+            },
+            "logoutResponse": {
+                "description": "ログアウト成功",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "メッセージ",
+                        "type": "string",
+                        "example": "ログアウトに成功しました。"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
@@ -312,9 +433,20 @@
                     "type": "integer"
                 }
             }
+        },
+        "securitySchemes": {
+            "BearerToken": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
         }
     },
     "tags": [
+        {
+            "name": "Auth",
+            "description": "認証"
+        },
         {
             "name": "Sample",
             "description": "サンプル"

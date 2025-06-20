@@ -5,9 +5,28 @@ declare(strict_types=1);
 namespace Tests\Helpers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Laravel\Passport\ClientRepository;
 
 trait TestHelper
 {
+    protected static bool $passportClientCreated = false;
+
+    protected static function createPassportClient(): void
+    {
+        // テーブルの内容を毎回リセットしてクライアントを再作成
+        DB::table('oauth_clients')->truncate();
+
+        $clientRepository = new ClientRepository();
+        $clientRepository->createPersonalAccessClient(
+            null,
+            'Personal Access Client',
+            'http://localhostexit'
+        );
+
+        self::$passportClientCreated = true;
+    }
+
     /**
      * ユーザーを作成し、認証トークンを生成する
      *
@@ -17,7 +36,7 @@ trait TestHelper
     {
         $user = User::factory()->create($userData);
 
-        return $user->createToken('auth_token')->plainTextToken;
+        return $user->createToken('authToken')->accessToken;
     }
 
     /**

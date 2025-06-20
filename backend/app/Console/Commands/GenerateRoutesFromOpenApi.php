@@ -76,7 +76,7 @@ class GenerateRoutesFromOpenApi extends Command
     private function generateRoutes(array $controllerClasses): string
     {
         $newRoutes = "Route::prefix('v1')->group(function () {\n";
-        $newAuthRoutes = "Route::middleware('auth:sanctum')->prefix('v1')->group(function () {\n";
+        $newAuthRoutes = "Route::middleware('auth:api')->prefix('v1')->group(function () {\n";
         foreach ($controllerClasses as $controllerClass) {
             $reflectionClass = new ReflectionClass($controllerClass);
             foreach ($reflectionClass->getMethods() as $method) {
@@ -146,7 +146,7 @@ class GenerateRoutesFromOpenApi extends Command
     {
         if (property_exists($attributeInstance, 'security') && is_array($attributeInstance->security)) {
             foreach ($attributeInstance->security as $security) {
-                if (is_array($security) && array_key_exists('sanctum_token', $security)) {
+                if (is_array($security) && array_key_exists('BearerToken', $security)) {
                     return true;
                 }
             }

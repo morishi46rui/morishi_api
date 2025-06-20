@@ -70,3 +70,9 @@ init:
 cho:
 	chown -R www-data app/storage
 	docker compose exec app chmod -R a+w /var/www/bootstrap/cache
+
+clear:
+	docker compose exec app bash -c "php artisan config:clear && php artisan cache:clear && php artisan route:clear && php artisan view:clear"
+
+test:
+	docker compose exec app bash -c "php artisan test"
