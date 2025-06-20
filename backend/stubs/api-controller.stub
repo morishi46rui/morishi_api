@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use App\Http\Controllers\Controller;
+use App\UseCases\DummyTag\DummyTagAction;
+use Illuminate\Http\JsonResponse;
+use OpenApi\Attributes as OA;
+
+#[OA\Tag(name: 'DummyTag', description: 'DummyTag関連処理')]
+class DummyClass extends Controller
+{
+    #[OA\Get(
+        path: '/dummy_path',
+        tags: ['DummyTag'],
+        summary: 'DummyTag取得',
+        description: 'DummyTagを取得するエンドポイント',
+        operationId: 'getDummyTag'
+    )]
+    #[OA\Response(
+        response: '200',
+        description: 'DummyTagのサンプルレスポンス',
+        content: new OA\JsonContent(ref: '#/components/schemas/DummyRef')
+    )]
+    public function index(DummyTagAction $action): JsonResponse
+    {
+        return response()->json($action(), 200, [], JSON_UNESCAPED_UNICODE);
+    }
+}

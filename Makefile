@@ -38,11 +38,7 @@ prune:
 
 # lintとformat
 fix:
-	make fixb
-
-fixb:
 	docker compose up -d db && \
-	docker compose run --rm app php artisan clockwork:clean -a && \
 	docker compose run --rm app bash -c "vendor/bin/pint && \
 	vendor/bin/phpcbf --standard=PSR12 app/ && \
 	vendor/bin/psalm && \
@@ -70,3 +66,10 @@ init:
 cho:
 	chown -R www-data app/storage
 	docker compose exec app chmod -R a+w /var/www/bootstrap/cache
+
+controller:
+	@read -p "Controller name (without 'Controller' suffix): " name; \
+	docker compose exec app php artisan make:apicontroller "Api/V1/$${name}Controller"
+
+test:
+	docker compose exec app php artisan test
