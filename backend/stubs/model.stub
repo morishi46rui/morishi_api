@@ -1,7 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
+use OpenApi\Attributes as OA;
+
+#[OA\Schema(
+    schema: '{{ schema_name }}',
+    title: '{{ class }}',
+    type: 'object',
+    description: '{{ class }}',
+    properties: [
+        new OA\Property(property: 'id', type: 'string', description: 'ID（Sqid）', example: 'DzP3tWWwjsIT'),
+    ]
+)]
 class {{ class }} extends BaseModel
 {
+    //
 }
