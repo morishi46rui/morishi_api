@@ -59,7 +59,7 @@ api:
 
 # 開発環境構築
 init:
-	cp ./app/.env.example ./app/.env && \
+	cp ./backend/.env.example ./backend/.env && \
 	make buildn && \
 	make upd && \
 	make seed && \
