@@ -50,6 +50,52 @@
     },
     "components": {
         "schemas": {
+            "address": {
+                "title": "Address",
+                "description": "Address",
+                "properties": {
+                    "id": {
+                        "description": "ID（Sqid）",
+                        "type": "string",
+                        "example": "DzP3tWWwjsIT"
+                    }
+                },
+                "type": "object"
+            },
+            "city": {
+                "title": "City",
+                "description": "City",
+                "properties": {
+                    "id": {
+                        "description": "ID（Sqid）",
+                        "type": "string",
+                        "example": "DzP3tWWwjsIT"
+                    }
+                },
+                "type": "object"
+            },
+            "prefecture": {
+                "title": "Prefecture",
+                "description": "Prefecture",
+                "properties": {
+                    "id": {
+                        "description": "ID（Sqid）",
+                        "type": "string",
+                        "example": "DzP3tWWwjsIT"
+                    },
+                    "name": {
+                        "description": "都道府県名",
+                        "type": "string",
+                        "example": "兵庫県"
+                    },
+                    "code": {
+                        "description": "都道府県コード",
+                        "type": "string",
+                        "example": "28"
+                    }
+                },
+                "type": "object"
+            },
             "user": {
                 "title": "ユーザー",
                 "description": "ユーザー",
