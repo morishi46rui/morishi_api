@@ -80,7 +80,7 @@ class MakeApiController extends ControllerMakeCommand
                             ),
                         ]
                     )]
-                    final class {$baseName}Action
+                    class {$baseName}Action
                     {
                         public function __invoke(): array
                         {
