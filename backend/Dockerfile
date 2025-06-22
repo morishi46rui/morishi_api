@@ -42,6 +42,10 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 # Composerを使ってLaravelプロジェクトの依存関係をインストール
 RUN composer install
 
+# psysh 設定ファイルを作成
+RUN mkdir -p /root/.config/psysh && \
+    echo "<?php return ['require' => [base_path('.tinker.php')]];" > /root/.config/psysh/config.php
+
 # 権限の設定
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 

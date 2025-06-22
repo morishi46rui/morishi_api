@@ -24,6 +24,9 @@ re:
 down:
 	docker compose down --remove-orphans
 
+stop:
+	docker compose stop
+
 # コンテナ内に入る
 b:
 	docker compose exec app bash
