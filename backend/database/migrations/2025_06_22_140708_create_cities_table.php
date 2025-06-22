@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('code')->unique()->comment('市区町村コード');
             $table->string('name')->comment('市区町村名');
             $table->foreignId('prefecture_id')->constrained()->comment('都道府県ID');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

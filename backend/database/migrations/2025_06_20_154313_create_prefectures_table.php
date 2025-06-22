@@ -15,6 +15,7 @@ return new class extends Migration
         $table->id();
         $table->unsignedTinyInteger('code')->unique()->comment('都道府県コード');
         $table->string('name')->comment('都道府県名');
+        $table->softDeletes();
         $table->timestamps();
         });
     }

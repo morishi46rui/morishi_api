@@ -58,6 +58,46 @@
                         "description": "ID（Sqid）",
                         "type": "string",
                         "example": "DzP3tWWwjsIT"
+                    },
+                    "code": {
+                        "description": "大字町丁目コード",
+                        "type": "string",
+                        "example": "281010001001"
+                    },
+                    "name": {
+                        "description": "大字町丁目名",
+                        "type": "string",
+                        "example": "御影一丁目"
+                    },
+                    "latitude": {
+                        "description": "緯度",
+                        "type": "number",
+                        "format": "float",
+                        "example": 34.720175
+                    },
+                    "longitude": {
+                        "description": "経度",
+                        "type": "number",
+                        "format": "float",
+                        "example": 135.249919
+                    },
+                    "deletedAt": {
+                        "description": "削除日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "createdAt": {
+                        "description": "作成日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "updatedAt": {
+                        "description": "更新日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
                     }
                 },
                 "type": "object"
@@ -70,6 +110,34 @@
                         "description": "ID（Sqid）",
                         "type": "string",
                         "example": "DzP3tWWwjsIT"
+                    },
+                    "code": {
+                        "description": "市区町村コード",
+                        "type": "integer",
+                        "example": 28101
+                    },
+                    "name": {
+                        "description": "市区町村名",
+                        "type": "string",
+                        "example": "神戸市"
+                    },
+                    "deletedAt": {
+                        "description": "削除日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "createdAt": {
+                        "description": "作成日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "updatedAt": {
+                        "description": "更新日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
                     }
                 },
                 "type": "object"
@@ -83,15 +151,33 @@
                         "type": "string",
                         "example": "DzP3tWWwjsIT"
                     },
+                    "code": {
+                        "description": "都道府県コード",
+                        "type": "integer",
+                        "example": 28
+                    },
                     "name": {
                         "description": "都道府県名",
                         "type": "string",
                         "example": "兵庫県"
                     },
-                    "code": {
-                        "description": "都道府県コード",
+                    "deletedAt": {
+                        "description": "削除日時(UTC)",
                         "type": "string",
-                        "example": "28"
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "createdAt": {
+                        "description": "作成日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
+                    },
+                    "updatedAt": {
+                        "description": "更新日時(UTC)",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T00:00:00.000Z"
                     }
                 },
                 "type": "object"

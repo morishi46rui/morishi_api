@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7)->nullable()->comment('緯度');
             $table->decimal('longitude', 10, 7)->nullable()->comment('経度');
             $table->foreignId('city_id')->constrained()->comment('市区町村ID');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
