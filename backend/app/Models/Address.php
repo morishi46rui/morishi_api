@@ -42,5 +42,10 @@ use OpenApi\Attributes as OA;
 )]
 class Address extends BaseModel
 {
-    //
+    protected $fillable = ['code', 'name', 'latitude', 'longitude', 'city_id'];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OpenApi\Attributes as OA;
 
 #[OA\Schema(
@@ -41,8 +40,6 @@ use OpenApi\Attributes as OA;
 )]
 class Prefecture extends BaseModel
 {
-    use HasFactory;
-
     protected $fillable = ['code', 'name'];
 
     public function cities()

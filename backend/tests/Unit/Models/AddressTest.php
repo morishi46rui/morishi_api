@@ -19,6 +19,11 @@ class AddressTest extends TestCase
         $model = Address::factory()->create();
         $this->assertDatabaseHas($model->getTable(), [
             'id' => $model->id,
+            'code' => $model->code,
+            'name' => $model->name,
+            'latitude' => $model->latitude,
+            'longitude' => $model->longitude,
+            'city_id' => $model->city_id,
         ]);
     }
 }

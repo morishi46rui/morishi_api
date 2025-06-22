@@ -19,6 +19,9 @@ class CityTest extends TestCase
         $model = City::factory()->create();
         $this->assertDatabaseHas($model->getTable(), [
             'id' => $model->id,
+            'code' => $model->code,
+            'name' => $model->name,
+            'prefecture_id' => $model->prefecture_id,
         ]);
     }
 }
