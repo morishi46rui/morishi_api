@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique()->comment('住所コード');
-            $table->string('name')->comment('町丁目名');
+            $table->unsignedBigInteger('code')->unique()->comment('大字町丁目コード');
+            $table->string('name')->comment('大字町丁目名');
             $table->decimal('latitude', 10, 7)->nullable()->comment('緯度');
             $table->decimal('longitude', 10, 7)->nullable()->comment('経度');
             $table->foreignId('city_id')->constrained()->comment('市区町村ID');

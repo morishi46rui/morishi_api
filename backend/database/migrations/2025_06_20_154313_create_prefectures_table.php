@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('prefectures', function (Blueprint $table) {
         $table->id();
-        $table->string('code')->unique()->comment('都道府県コード');
+        $table->unsignedTinyInteger('code')->unique()->comment('都道府県コード');
         $table->string('name')->comment('都道府県名');
         $table->timestamps();
         });
