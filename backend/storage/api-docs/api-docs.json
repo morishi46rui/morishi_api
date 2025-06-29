@@ -15,6 +15,49 @@
         }
     ],
     "paths": {
+        "/address/upload": {
+            "post": {
+                "tags": [
+                    "Address"
+                ],
+                "summary": "AddressCSVアップロード",
+                "description": "CSVファイルをアップロードしてAddressデータを更新します。",
+                "operationId": "uploadAddressCsv",
+                "requestBody": {
+                    "description": "CSVファイルを含むリクエストボディ",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "CSVファイル（都道府県・市区町村・住所情報）",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/addressUploadResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/sample": {
             "get": {
                 "tags": [
@@ -370,6 +413,20 @@
                     }
                 },
                 "type": "object"
+            },
+            "addressUploadResponse": {
+                "description": "Addressのサンプルレスポンス",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "description": "サンプルメッセージ",
+                        "type": "string",
+                        "example": "Addressデータが更新されました"
+                    }
+                },
+                "type": "object"
             }
         },
         "responses": {
@@ -447,6 +504,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Address",
+            "description": "Address関連処理"
+        },
         {
             "name": "Sample",
             "description": "サンプル"

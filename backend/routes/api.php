@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // OpenAPI generated routes start
 Route::prefix('v1')->group(function () {
+    Route::post('/address/upload', 'App\Http\Controllers\Api\V1\AddressController@upload');
     Route::get('/sample', 'App\Http\Controllers\Api\V1\SampleController@index');
 });
 
